@@ -1,0 +1,1 @@
+Dentro de la carpeta del proyecto, se encuentra realizada una coleccion de postman a disposicion para importar y probar de forma mas simple

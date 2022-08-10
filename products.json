@@ -1,0 +1,22 @@
+[
+	{
+		"name": "pizarron",
+		"description": "Descripcion de un pizarron",
+		"code": "ab9",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png",
+		"price": 25,
+		"stock": 4,
+		"id": 7,
+		"timestamp": 1660144830206
+	},
+	{
+		"name": "tubo de ensayo",
+		"description": "Descripcion de tubo de ensayo",
+		"code": "as1",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/tube-lab-science-school-256.png",
+		"price": 25,
+		"stock": 20,
+		"id": 8,
+		"timestamp": 1660145713560
+	}
+]

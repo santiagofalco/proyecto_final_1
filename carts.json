@@ -1,0 +1,26 @@
+[
+	{
+		"id": 2,
+		"timestamp": 1659653148679,
+		"products": []
+	},
+	{
+		"id": 3,
+		"timestamp": 1660086534254,
+		"products": [
+			{
+				"quantity": 1,
+				"product": 2
+			},
+			{
+				"quantity": 1,
+				"product": 7
+			}
+		]
+	},
+	{
+		"id": 4,
+		"timestamp": 1660145344292,
+		"products": []
+	}
+]
