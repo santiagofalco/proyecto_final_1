@@ -187,7 +187,7 @@ class CartService {
         try {
             let carts = await this.getAll()
             if (carts.length != 0) { //Si no esta vacio
-                let cartToDelete = carts.find((e) => {
+                let cartToDelete = carts.findIndex((e) => {  //cambio find por findIndex
                     return e.id === parseInt(id)
                 })
                 if (cartToDelete === -1) {
@@ -195,7 +195,7 @@ class CartService {
                 }
 
 
-                carts.splice(cartToDelete - 1, 1)
+                carts.splice(cartToDelete, 1)
                 await fs.promises.writeFile(this.fileName, JSON.stringify(carts, null, '\t'))
             } else { // está vacio 
                 console.log('el array esta vacio')

@@ -108,14 +108,18 @@ class ProductService {
             let products = await this.getAll()
             if (products.length != 0) { //Si no esta vacio
 
-                let foundProduct = products.find((e) => {
-                    return e.id === id
+                let foundProduct = products.findIndex((e) => {
+                    return e.id === parseInt(id)
                 })
+
+                if (foundProduct === -1) {
+                    throw new Error('No hay producto con ese valor ingresado')
+                }
 
                 if (!foundProduct) {
                     return null
                 }
-                products.splice(foundProduct-1, 1)
+                products.splice(foundProduct, 1)
                 await fs.promises.writeFile(this.fileName, JSON.stringify(products, null, '\t'))
             } else { // está vacio 
                 console.log('el array esta vacio')
