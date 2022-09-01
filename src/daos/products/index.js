@@ -16,6 +16,16 @@ const factoryProducts = {
     }
 }
 
+/*
+Para poder implementar la persistencia, sobre todo en memoria, 
+los servicios de persistencia que debo devolver, deben ser de tipo singleton.
+De esta forma, la persistencia de productos esta siempre manejada por la misma instancia
+y es compartida entre el servicio de productos y el servicio de carritos.
+Además es mejor mantener un única conexión con mongo y no multiples para la misma colección
+
+*/
+
+
 let engine = undefined
 
 

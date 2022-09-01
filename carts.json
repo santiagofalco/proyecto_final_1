@@ -1,7 +1,12 @@
 [
 	{
-		"timestamp": 1661988452009,
-		"products": [],
-		"id": "7affc058-4035-4b9a-9ba5-37e31eb5c9db"
+		"timestamp": 1662048805007,
+		"products": [
+			{
+				"quantity": 1,
+				"product": "533d8b1c-fd63-49b8-93e7-26176bb3b86d"
+			}
+		],
+		"id": "b85dd669-596c-430c-b7ee-4b44bfeb3bd3"
 	}
 ]

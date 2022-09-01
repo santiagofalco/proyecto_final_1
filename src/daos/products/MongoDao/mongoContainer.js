@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
-import { ObjectId } from "bson";
 
 export default class MongoDBContainer {
     constructor(collection, schema) {
-        // mongoose.connect('mongodb://127.0.0.1/db')
         mongoose.connect('mongodb+srv://santiagofalco:123asd@clustercursocoder.guulqh2.mongodb.net/atlasdb?retryWrites=true&w=majority', err => {
             if (err) {
                 console.log(err)
@@ -18,7 +16,6 @@ export default class MongoDBContainer {
     }
 
     getById = async (id) => {
-        console.log(typeof id)
         let result = await this.model.findById(id)
         console.log(result)
         return result
@@ -48,7 +45,6 @@ export default class MongoDBContainer {
     }
 
     updateStock = async (id, data) => {
-        console.log(data)
         await this.model.findByIdAndUpdate(
             id,
             {

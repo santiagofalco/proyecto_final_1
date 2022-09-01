@@ -1,22 +1,22 @@
 [
 	{
-		"name": "lapicera",
-		"description": "Descripcion lapicera modificada",
+		"name": "lapiz",
+		"description": "Descripcion producto lapiz",
 		"code": "qwe341",
-		"thumbnail": "urlImagenLapiz",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
 		"price": 12,
 		"stock": 3,
 		"timestamp": 4905864564,
 		"id": "8c50fbd9-df13-4315-bf62-a5c552c1b024"
 	},
 	{
-		"name": "producto2",
-		"description": "Descripcion de prueba  2",
-		"code": "ab5",
-		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/tube-lab-science-school-256.png",
-		"price": 25,
-		"stock": 20,
-		"timestamp": 1661988203999,
-		"id": "5b3f581c-e9dd-4be0-b23a-bc610cb21895"
+		"name": "microscopio",
+		"description": "Descripcion microscopio",
+		"code": "da1",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/microscope-lab-science-school-256.png",
+		"price": 12,
+		"stock": 5,
+		"timestamp": 4905864564,
+		"id": "533d8b1c-fd63-49b8-93e7-26176bb3b86d"
 	}
 ]

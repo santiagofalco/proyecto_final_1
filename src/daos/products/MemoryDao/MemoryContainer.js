@@ -11,20 +11,15 @@ export default class MemoryContainer {
     }
 
     getById = async (id) => {
-        console.log('----------------------------------------')
         let found = this.data.find(e => {
-            console.log('buscando producto por id', e.id, id)
             return e.id === id
         })
-        console.log(found)
-        console.log('----------------------------------------')
         return found
     }
 
     save = async (element) => {
         element.id = randomUUID()
         this.data.push(element)
-        console.log(this.data)
         return element
     }
 

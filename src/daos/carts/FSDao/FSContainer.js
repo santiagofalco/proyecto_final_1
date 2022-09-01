@@ -75,6 +75,7 @@ export default class FSContainer {
             return e.id === id
         })
         elements.splice(found, 1)
+        await this._reWriteToFile(elements)
 
     }
 
