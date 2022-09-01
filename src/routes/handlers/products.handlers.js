@@ -1,3 +1,5 @@
+import { errCodigoInvalido } from "../../services/product.service.js"
+
 export class ProductHandler {
     constructor(service) {
         this.service = service
@@ -13,12 +15,12 @@ export class ProductHandler {
     }
 
     getProductById = async (req, res) => {
-        let id = parseInt(req.params.pid)
-        const productos = await this.service.getById(id)
-        if (!productos) {
-            res.status(404).json([])
+        let id = req.params.pid
+        const producto = await this.service.getById(id)
+        if (!producto) {
+            res.status(404).json({})
         } else {
-            res.status(200).json(productos)
+            res.status(200).json(producto)
         }
     }
 
@@ -27,19 +29,20 @@ export class ProductHandler {
         try {
             producto = await this.service.addProduct(req.body)
         } catch (error) {
+            if(error == errCodigoInvalido) {
+                res.status(409).send('Codigo Invalido')
+                return
+            }
             res.status(500).send('Algo falló')
             return
         }
-
-        res.status(200).json({ producto })
+        console.log(producto)
+        res.status(200).json(producto)
     }
 
     updateProduct = async (req, res) => {
         try {
-            if (isNaN(parseInt(req.params.pid))) {
-                res.status(400).send('id invalido')
-            }
-            let id = parseInt(req.params.pid)
+            let id = req.params.pid
             await this.service.updateProduct(id, req.body)
         } catch (error) {
             res.status(500).send('Algo falló')
@@ -49,10 +52,7 @@ export class ProductHandler {
 
     deleteProductById = async (req, res) => {
         try {
-            if (isNaN(parseInt(req.params.pid))) {
-                res.status(400).send('id invalido')
-            }
-            let id = parseInt(req.params.pid)
+            let id = req.params.pid
             await this.service.deleteProductById(id)
         } catch (error) {
             res.status(500).send('Falló al eliminar')

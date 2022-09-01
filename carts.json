@@ -1,26 +1,7 @@
 [
 	{
-		"id": 2,
-		"timestamp": 1659653148679,
-		"products": []
-	},
-	{
-		"id": 3,
-		"timestamp": 1660086534254,
-		"products": [
-			{
-				"quantity": 1,
-				"product": 8
-			},
-			{
-				"quantity": 1,
-				"product": 7
-			}
-		]
-	},
-	{
-		"id": 4,
-		"timestamp": 1660145344292,
-		"products": []
+		"timestamp": 1661988452009,
+		"products": [],
+		"id": "7affc058-4035-4b9a-9ba5-37e31eb5c9db"
 	}
 ]

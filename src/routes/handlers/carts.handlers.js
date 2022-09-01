@@ -19,23 +19,17 @@ export class CartsHandler {
 
     appendProductToCart = async (req, res) => {
         try {
-            if (isNaN(parseInt(req.params.cid))) {
-                res.status(400).send('id invalido')
-            }
-            let id = parseInt(req.params.cid)
+            let id = req.params.cid
             await this.service.addProductToCart(id, req.body)
         } catch (error) {
-            res.status(500).send('Algo falló')
+            res.status(500).send(error.message)
         }
         res.status(200).send()
     }
 
     deleteCart = async (req, res) => {
         try {
-            if (isNaN(parseInt(req.params.cid))) {
-                res.status(400).send('id invalido')
-            }
-            let id = parseInt(req.params.cid)
+            let id = req.params.cid
             await this.service.deleteCartById(id)
         } catch (error) {
             res.status(500).send('Falló al eliminar')
@@ -45,14 +39,9 @@ export class CartsHandler {
 
     deleteCartProduct = async (req, res) => {
         try {
-            if (isNaN(parseInt(req.params.cid))) {
-                res.status(400).send('id de carrito invalido')
-            }
-            if (isNaN(parseInt(req.params.pid))) {
-                res.status(400).send('id de producto invalido')
-            }
-            let id = parseInt(req.params.cid)
-            let pid = parseInt(req.params.pid)
+            
+            let id = req.params.cid
+            let pid = req.params.pid
             await this.service.deleteCartProduct(id, pid)
         } catch (error) {
             res.status(500).send('Falló al eliminar')

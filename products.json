@@ -1,22 +1,22 @@
 [
 	{
-		"name": "tubo de ensayo",
-		"description": "Descripcion de tubo de ensayo",
-		"code": "as1",
-		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/tube-lab-science-school-256.png",
-		"price": 25,
-		"stock": 20,
-		"id": 8,
-		"timestamp": 1660145713560
+		"name": "lapicera",
+		"description": "Descripcion lapicera modificada",
+		"code": "qwe341",
+		"thumbnail": "urlImagenLapiz",
+		"price": 12,
+		"stock": 3,
+		"timestamp": 4905864564,
+		"id": "8c50fbd9-df13-4315-bf62-a5c552c1b024"
 	},
 	{
-		"name": "mochila",
-		"description": "Descripcion de mochila",
-		"code": "ad2",
+		"name": "producto2",
+		"description": "Descripcion de prueba  2",
+		"code": "ab5",
 		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/tube-lab-science-school-256.png",
 		"price": 25,
 		"stock": 20,
-		"id": 9,
-		"timestamp": 1660246755638
+		"timestamp": 1661988203999,
+		"id": "5b3f581c-e9dd-4be0-b23a-bc610cb21895"
 	}
 ]

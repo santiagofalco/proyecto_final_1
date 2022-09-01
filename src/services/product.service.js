@@ -1,21 +1,16 @@
-import fs from 'fs'
+
+export const errCodigoInvalido = new Error('Codigo invalido')
+
 
 class ProductService {
 
-    constructor(fileName) {
-        this.fileName = fileName
+    constructor(persistance) {
+        this.persistance = persistance
     }
 
     getAll = async () => {
         try {
-            if (fs.existsSync(this.fileName)) {
-                let fileData = await fs.promises.readFile(this.fileName, 'utf-8')
-                let products = JSON.parse(fileData)
-                return products
-            } else {
-                return [] //No hay products, devuelvo array vacio
-            }
-
+           return await this.persistance.getAll()
         } catch (err) {
             console.error('Error' + err)
             return null
@@ -36,21 +31,7 @@ class ProductService {
 
     getById = async (id) => {
         try {
-            if (fs.existsSync(this.fileName)) {
-                let fileData = await fs.promises.readFile(this.fileName, 'utf-8')
-                let product = JSON.parse(fileData)
-
-                let foundProduct = product.find((e) => {
-                    return e.id === id
-                })
-                if (!foundProduct) {
-                    return null
-                }
-                return foundProduct
-            } else {
-                console.log('No existe')
-                return null
-            }
+            return await this.persistance.getById(id)
         } catch (err) {
             console.error('Error' + err)
             throw err
@@ -62,18 +43,11 @@ class ProductService {
         try {
             if (product.code && !(await this._isValidCode(product.code, undefined))) {
                 console.log('codigo invalido')
-                throw new Error('Codigo invalido')
-            }
-            let products = await this.getAll()
-            if (products.length === 0) { //No existe o vacio
-                product.id = 1
-            } else { // mas de un producto
-                product.id = products[products.length - 1].id + 1
+                throw errCodigoInvalido
             }
             product.timestamp = Date.now()
-            products.push(product)
-            await fs.promises.writeFile(this.fileName, JSON.stringify(products, null, '\t'))
-            return product.id
+            const result = await this.persistance.save(product)
+            return result
         } catch (err) {
             console.error('Error' + err)
             throw err
@@ -86,17 +60,7 @@ class ProductService {
                 console.log('codigo invalido')
                 throw new Error('Codigo invalido')
             }
-            let products = await this.getAll()
-            let oldProductIndex = products.findIndex((e) => {
-                return e.id === parseInt(id)
-            })
-            if (oldProductIndex === -1) {
-                throw new Error('No hay producto con ese valor ingresado')
-            }
-            let productoActualizar = products[oldProductIndex]
-            productoActualizar = { ...productoActualizar, ...newValues }
-            products[oldProductIndex] = productoActualizar
-            await fs.promises.writeFile(this.fileName, JSON.stringify(products, null, '\t'))
+            await this.persistance.update(id, newValues)
         } catch (error) {
             console.error('Error' + error)
             throw error
@@ -105,25 +69,7 @@ class ProductService {
 
     deleteProductById = async (id) => {
         try {
-            let products = await this.getAll()
-            if (products.length != 0) { //Si no esta vacio
-
-                let foundProduct = products.findIndex((e) => {
-                    return e.id === parseInt(id)
-                })
-
-                if (foundProduct === -1) {
-                    throw new Error('No hay producto con ese valor ingresado')
-                }
-
-                if (!foundProduct) {
-                    return null
-                }
-                products.splice(foundProduct, 1)
-                await fs.promises.writeFile(this.fileName, JSON.stringify(products, null, '\t'))
-            } else { // está vacio 
-                console.log('el array esta vacio')
-            }
+           await this.persistance.deleteById(id)
 
         } catch (err) {
             console.error('Error' + err)
