@@ -1,4 +1,6 @@
-const persistence = process.env.PERSISTANCE
+import config from '../../config/config.js'
+
+const persistance = config.persistance.PERSISTANCE
 
 const factoryProducts = {
     'MEMORY': async () => {
@@ -33,7 +35,7 @@ export const getProductPersistance = async( ) => {
     if (engine) {
         return engine
     }
-    const ProductService = await factoryProducts[persistence]()
+    const ProductService = await factoryProducts[persistance]()
     engine = new ProductService()
     return engine
 }

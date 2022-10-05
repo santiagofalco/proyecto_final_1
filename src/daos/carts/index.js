@@ -1,4 +1,6 @@
-const persistance = process.env.PERSISTANCE
+import config from "../../config/config.js";
+
+const persistance = config.persistance.PERSISTANCE
 
 const factoryCarts = {
     'MEMORY': async () => {

@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import config from "../../../config/config.js";
 
 export default class MongoDBContainer {
     constructor(collection, schema) {
-        mongoose.connect('mongodb+srv://santiagofalco:123asd@clustercursocoder.guulqh2.mongodb.net/atlasdb?retryWrites=true&w=majority', err => {
+        mongoose.connect(config.mongo.MONGO_URL, err => {
             if (err) {
                 console.log(err)
             } else console.log('base conectada')
