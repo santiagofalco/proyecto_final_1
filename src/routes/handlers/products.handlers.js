@@ -1,4 +1,5 @@
 import { errCodigoInvalido } from "../../services/product.service.js"
+import {logger} from '../../utils/logger.js'
 
 export class ProductHandler {
     constructor(service) {
@@ -8,6 +9,7 @@ export class ProductHandler {
     getAllProducts = async (req, res) => {
         const productos = await this.service.getAll()
         if (!productos) {
+            logger.info('productos:', [])
             res.status(404).json([])
         } else {
             res.status(200).json(productos)
@@ -18,6 +20,7 @@ export class ProductHandler {
         let id = req.params.pid
         const producto = await this.service.getById(id)
         if (!producto) {
+            logger.info('productos:', {})
             res.status(404).json({})
         } else {
             res.status(200).json(producto)
@@ -30,13 +33,15 @@ export class ProductHandler {
             producto = await this.service.addProduct(req.body)
         } catch (error) {
             if(error == errCodigoInvalido) {
+                logger.info('Codigo Invalido')
                 res.status(409).send('Codigo Invalido')
                 return
             }
+            logger.error('Error 500: Algo falló')
             res.status(500).send('Algo falló')
             return
         }
-        console.log(producto)
+        logger.info(producto)
         res.status(200).json(producto)
     }
 
@@ -45,6 +50,7 @@ export class ProductHandler {
             let id = req.params.pid
             await this.service.updateProduct(id, req.body)
         } catch (error) {
+            logger.error('Error 500: Algo falló')
             res.status(500).send('Algo falló')
         }
         res.status(200).send()
@@ -55,6 +61,7 @@ export class ProductHandler {
             let id = req.params.pid
             await this.service.deleteProductById(id)
         } catch (error) {
+            logger.error('Error 500: Algo falló')
             res.status(500).send('Falló al eliminar')
         }
         res.status(200).send()

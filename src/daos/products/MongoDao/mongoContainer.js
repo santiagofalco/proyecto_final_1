@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import config from "../../../config/config.js";
+import {logger} from '../../../utils/logger.js'
 
 export default class MongoDBContainer {
     constructor(collection, schema) {
         mongoose.connect(config.mongo.MONGO_URL, err => {
             if (err) {
-                console.log(err)
-            } else console.log('base conectada')
+                logger.error(err)
+            } else logger.info('base conectada')
         })
         this.model = mongoose.model(collection, schema)
     }
@@ -18,7 +19,7 @@ export default class MongoDBContainer {
 
     getById = async (id) => {
         let result = await this.model.findById(id)
-        console.log(result)
+        logger.info(result)
         return result
     }
 

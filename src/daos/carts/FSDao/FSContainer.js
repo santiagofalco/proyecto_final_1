@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { randomUUID } from "crypto"
+import {logger} from '../../../utils/logger.js'
 
 export default class FSContainer {
     constructor(fileName) {
@@ -59,7 +60,7 @@ export default class FSContainer {
 
     update = async (id, newValues) => {
         let elements = await this.getAll()
-        console.log(elements)
+        logger.info(elements)
         let found = elements.findIndex(e => {
             return e.id === id
         })

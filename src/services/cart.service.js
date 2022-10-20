@@ -1,4 +1,5 @@
 import fs from 'fs'
+import {logger} from '../utils/logger.js'
 
 class CartService {
 
@@ -9,7 +10,7 @@ class CartService {
 
     _isProductValid = async (id, stock) => {
         let product = await this.productPersistance.getById(id)
-        console.log(product)
+        logger.info(product)
         if (!product) {
             return false
         }
@@ -21,7 +22,7 @@ class CartService {
 
     _updateStock = async (id, stock) => {
         let product = await this.productPersistance.getById(id)
-        console.log('producto',product)
+        logger.info('producto',product)
         product.stock -= stock
         await this.productPersistance.updateStock(id, product)
     }
@@ -39,7 +40,7 @@ class CartService {
             cart = await this.persistance.save(cart)
             return cart.id
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             return null
         }
     }
@@ -48,16 +49,17 @@ class CartService {
     addProductToCart = async (id, item) => {
         try {
             if (! await this._isProductValid(item.product, item.quantity)) {
-                console.error('producto no valido')
-                throw new Error('Producto inexistente o insuficiente')
+                // throw new Error('Producto inexistente o insuficiente')
+                logger.info('producto no valido o insuficiente')
             }
             let carrito = await this.persistance.getById(id)
 
             if (!carrito) {
-                throw new Error('carrito no existe')
+                logger.info('producto no valido o inexistente')
+                // throw new Error('carrito no existe')
             }
-            console.log(item)
-            console.log(carrito)
+            logger.info(item)
+            logger.info(carrito)
             let productIdx = carrito.products.findIndex((e) => {
                 return e.product === item.product
             })
@@ -74,7 +76,7 @@ class CartService {
             await this.persistance.update(id, carrito)
             this._updateStock(item.product, item.quantity)
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             throw err
         }
     }
@@ -85,7 +87,8 @@ class CartService {
         try {
             await this.persistance.update(id, data)
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
+            throw err
         }
 
     }
@@ -95,7 +98,8 @@ class CartService {
         try {
             return await this.persistance.getById(id)
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
+            throw err
         }
     }
 
@@ -103,7 +107,7 @@ class CartService {
         try {
             return await this.persistance.deleteById(id)
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             throw err
         }
 
@@ -111,25 +115,27 @@ class CartService {
 
 
     deleteCartProduct = async (id, pid) => {
-        console.log(pid)
+        logger.info(pid)
         try {
             let carrito = await this.persistance.getById(id)
-            console.log(carrito)
+            logger.info(carrito)
             if (!carrito) {
-                throw new Error('carrito no existe')
+                logger.info('carrito no existe')
+                // throw new Error('carrito no existe')
             }
             let productIdx = carrito.products.findIndex(e => {
                 return e.product === pid
             })
             if (productIdx === -1) {
-                throw new Error('producto no existe')
+                logger.info('producto no existe')
+                // throw new Error('producto no existe')
             }
             let [removedProduct] = carrito.products.splice(productIdx, 1)
             await this.persistance.update(id, carrito)
             await this._updateStock(pid, removedProduct.quantity * -1)
         } catch (error) {
-            console.error('Error' + error)
-            throw error
+            logger.error('Error' + error)
+            // throw error
         }
 
     }

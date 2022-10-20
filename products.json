@@ -5,18 +5,18 @@
 		"code": "qwe341",
 		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
 		"price": 12,
-		"stock": 3,
+		"stock": 18,
 		"timestamp": 4905864564,
 		"id": "8c50fbd9-df13-4315-bf62-a5c552c1b024"
 	},
 	{
-		"name": "microscopio",
-		"description": "Descripcion microscopio",
-		"code": "da1",
-		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/microscope-lab-science-school-256.png",
-		"price": 12,
-		"stock": 5,
-		"timestamp": 4905864564,
-		"id": "533d8b1c-fd63-49b8-93e7-26176bb3b86d"
+		"name": "pizarra",
+		"description": "Descripcion de tubo de pizarra",
+		"code": "ac2",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png",
+		"price": 30,
+		"stock": 40,
+		"timestamp": 1666293996780,
+		"id": "3b97b81c-d410-4b00-9157-aec5b58b5f45"
 	}
 ]

@@ -1,5 +1,6 @@
 
 export const errCodigoInvalido = new Error('Codigo invalido')
+import {logger} from '../utils/logger.js'
 
 
 class ProductService {
@@ -12,7 +13,7 @@ class ProductService {
         try {
            return await this.persistance.getAll()
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             return null
         }
     }
@@ -33,7 +34,7 @@ class ProductService {
         try {
             return await this.persistance.getById(id)
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             throw err
         }
     }
@@ -42,14 +43,14 @@ class ProductService {
     addProduct = async (product) => {
         try {
             if (product.code && !(await this._isValidCode(product.code, undefined))) {
-                console.log('codigo invalido')
+                logger.warn('codigo invalido')
                 throw errCodigoInvalido
             }
             product.timestamp = Date.now()
             const result = await this.persistance.save(product)
             return result
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             throw err
         }
     }
@@ -57,12 +58,12 @@ class ProductService {
     updateProduct = async (id, newValues) => {
         try {
             if (newValues.code && !(await this._isValidCode(newValues.code, id))) {
-                console.log('codigo invalido')
+                logger.warn('codigo invalido')
                 throw new Error('Codigo invalido')
             }
             await this.persistance.update(id, newValues)
         } catch (error) {
-            console.error('Error' + error)
+            logger.error('Error' + error)
             throw error
         }
     }
@@ -72,7 +73,7 @@ class ProductService {
            await this.persistance.deleteById(id)
 
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
         }
 
     }
