@@ -1,4 +1,5 @@
 import { AUTH_TOKEN } from '../app.js'
+import { logger } from '../utils/logger.js';
 
 const authMiddleware = (req, res, next) => {
     try {
@@ -8,7 +9,7 @@ const authMiddleware = (req, res, next) => {
             next();
         }
     } catch (error) {
-        console.error('Error' + err)
+        logger.error('Error' + err)
     }
 }
 export default authMiddleware

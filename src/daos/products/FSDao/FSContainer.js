@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { randomUUID } from "crypto"
+import { logger } from '../../../utils/logger.js'
 
 export default class FSContainer {
     constructor(fileName) {
@@ -17,7 +18,7 @@ export default class FSContainer {
             }
 
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             return null
         }
     }

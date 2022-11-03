@@ -1,0 +1,61 @@
+html 
+    head
+        title='Products'
+        style(type="text/css").
+            .form {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+            table.tabla {
+                display: flex;
+                flex-direction: row;
+                text-align: center;
+            }
+            img.imagen {
+                max-width: 20%;
+            }
+            img.avatar {
+                max-width: 5%;
+            }
+            .bloqueChat {
+                display: flex;
+                flex-direction: column;
+            }
+            .input {
+                width: 20%
+            }
+            span {
+                display: flex;
+            }
+            button.btn-out {
+                align-self: center;
+            }
+            button.cart {
+                align-self: center;
+                margin-right: 10px;
+            }
+        body
+            div
+                if userRole === 'ADMIN'
+                    h2=welcomeMessage
+                    form( class='form' id='productEditForm')
+                        label(name="producto") Producto: 
+                        input(name="name" value=product.name)
+                        label(name="description") Descripcion: 
+                        input(name="description" value=product.description)
+                        label(name="code") Code: 
+                        input(name="code" value=product.code)    
+                        label(name="price") Precio:        
+                        input(name="price" value=product.price) 
+                        label(name="thumbnail")  Url Imagen: 
+                        input(name="thumbnail" value=product.thumbnail)
+                        label(name="stock")  stock: 
+                        input(name="stock" value=product.stock)  
+                        button(type='submit') Editar
+                else 
+                    h1='Usted no tiene permisos para ver esto'        
+        script(type='text/javascript' src='../public/js/product.js')
+
+
+        //http://localhost:8080/edit/630e98ccc8b772dccce82ec0

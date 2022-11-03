@@ -1,8 +1,10 @@
 import {logger} from '../../utils/logger.js'
 
 export class CartsHandler {
-    constructor(service) {
+    constructor(service, mailService, userService) {
         this.service = service
+        this.mailService = mailService
+        this.userService = userService
     }
 
     getCart = async (req, res) => {
@@ -51,6 +53,26 @@ export class CartsHandler {
         } catch (error) {
             logger.error('Falló al eliminar')
             res.status(500).send('Error 500: Falló al eliminar')
+        }
+        res.status(200).send()
+    }
+
+
+    finishCart = async (req, res) => {
+        try {
+            const {email, id, currentCartId} = req.session.user
+            let result = await this.mailService.sendSimpleMail({
+                from: 'ProyectoEcommerce',
+                to: email,
+                subject: 'Confirmación de finalizacion simulación de compra',
+            })
+            await this.service.deleteCartById(currentCartId)
+            await this.userService.updateCurrentCartUser(id, null)
+            req.session.user.currentCartId = null
+            res.status(200).send()
+        }catch (error) {
+            logger.error('error en finishCart', error)
+            res.status(500).send('Falló al finalizar la compra')
         }
         res.status(200).send()
     }

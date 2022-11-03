@@ -16,10 +16,10 @@ router.get("/", handler.getAllProducts);
 
 router.get("/:pid", handler.getProductById);
 
-router.post("/", authMiddleware, handler.addProductToList);
+router.post("/", handler.addProductToList); //agregar authMiddleware
 
-router.put("/:pid", authMiddleware, handler.updateProduct);
+router.put("/:pid", handler.updateProduct); //agregar authMiddleware
 
-router.delete("/:pid", authMiddleware, handler.deleteProductById);
+router.delete("/:pid", handler.deleteProductById); //agregar authMiddleware
 
 export default router

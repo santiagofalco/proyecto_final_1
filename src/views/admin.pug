@@ -1,0 +1,79 @@
+html 
+    head
+        title='Products'
+        style(type="text/css").
+            .form {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+            table.tabla {
+                display: flex;
+                flex-direction: row;
+                text-align: center;
+            }
+            img.imagen {
+                max-width: 20%;
+            }
+            img.avatar {
+                max-width: 5%;
+            }
+            .bloqueChat {
+                display: flex;
+                flex-direction: column;
+            }
+            .input {
+                width: 20%
+            }
+            span {
+                display: flex;
+            }
+            button.btn-out {
+                align-self: center;
+            }
+            button.cart {
+                align-self: center;
+                margin-right: 10px;
+            }
+        body
+            div
+                span 
+                    h2=welcomeMessage
+                    img(class='avatar' src=avatar)
+                    button(class='btn-out' id='logout') Desloguear
+                h3='Ingrese Producto'
+                form( class='form' id='productForm')
+                    label(name="producto") Producto: 
+                    input(name="name")
+                    label(name="dedcripcion") Descripcion: 
+                    input(name="description")
+                    label(name="code") Code: 
+                    input(name="code") 
+                    label(name="precio") Precio:        
+                    input(name="price") 
+                    label(name="thumbnail")  Url Imagen: 
+                    input(id="thumbnail" name="thumbnail")
+                    label(name="stock") Stock: 
+                    input(name="stock")
+                    button(type="submit") Enviar
+                h2=message
+                if productos.length > 0
+                    table(class='tabla' id='tabla')
+                        tr
+                            th Nombre Producto
+                            th Precio Producto
+                            th Imagen Producto
+                        each producto in productos
+                            tr
+                                td=producto.name
+                                td=producto.price
+                                td
+                                    img(class='imagen' src=producto.thumbnail)
+                                td
+                                    a(class='cart' href="/edit/"+producto.id) Editar
+                                    button(class='cart' onclick='deleteProductFromList("'+producto.id+'")') Eliminar
+                else
+                    h4='No hay productos para mostrar'
+        script(type='text/javascript' src='../public/js/product.js')
+        script(type='text/javascript' src='../public/js/logout.js')
+        script(type='text/javascript' src='../public/js/cart.js')

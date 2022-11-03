@@ -50,7 +50,7 @@ export class ProductHandler {
             let id = req.params.pid
             await this.service.updateProduct(id, req.body)
         } catch (error) {
-            logger.error('Error 500: Algo falló')
+            logger.error('Error 500: Algo falló', error)
             res.status(500).send('Algo falló')
         }
         res.status(200).send()

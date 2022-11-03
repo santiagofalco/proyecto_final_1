@@ -19,7 +19,7 @@ export default class FSContainer {
             }
 
         } catch (err) {
-            console.error('Error' + err)
+            logger.error('Error' + err)
             return null
         }
     }

@@ -1,0 +1,63 @@
+html 
+    head
+        title='Products'
+        style(type="text/css").
+            .form {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+            table.tabla {
+                display: flex;
+                flex-direction: row;
+                text-align: center;
+                border: '1px';
+            }
+            img.imagen {
+                max-width: 20%;
+            }
+            img.avatar {
+                max-width: 5%;
+            }
+            .bloqueChat {
+                display: flex;
+                flex-direction: column;
+            }
+            .input {
+                width: 20%
+            }
+            span {
+                display: flex;
+            }
+            button.btn-out {
+                align-self: center;
+            }
+            button.cart {
+                align-self: center;
+            }
+            p.info {
+                font-size: 15px;
+            }
+        body
+            div
+                if cart.length > 0
+                    h3='Productos en Carrito'
+                    h4=`Usted posee ${cart.length} producto/s en su carrito`
+                    table(class='tabla' id='tabla')
+                        tr
+                            th Nombre Producto
+                            th Precio Producto
+                            th Imagen Producto
+                        each producto in cart
+                            tr
+                                td=producto.name
+                                td=producto.price
+                                td
+                                    img(class='imagen' src=producto.thumbnail)
+                                td
+                                    button(class='cart' onclick='deleteProductFromCart("'+currentCartId+'","'+producto.id+'")') Quitar del carrito
+                    button(class='cart' onclick='finishPurchase("'+currentCartId+'", "'+userId+'")') Finalizar Compra
+                    p(class='info') *Se le enviará un mail de confirmación*
+                else
+                    h4='Carrito vacío, comience seleccionando algunos productos'
+        script(type='text/javascript' src='../public/js/cart.js')

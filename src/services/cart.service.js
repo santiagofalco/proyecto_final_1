@@ -50,30 +50,30 @@ class CartService {
         try {
             if (! await this._isProductValid(item.product, item.quantity)) {
                 // throw new Error('Producto inexistente o insuficiente')
-                logger.info('producto no valido o insuficiente')
+                logger.info('not valid or insufficient product')
             }
-            let carrito = await this.persistance.getById(id)
+            let cart = await this.persistance.getById(id)
 
-            if (!carrito) {
-                logger.info('producto no valido o inexistente')
-                // throw new Error('carrito no existe')
+            if (!cart) {
+                logger.info('not valid or inexistent cart')
+                // throw new Error('cart no existe')
             }
             logger.info(item)
-            logger.info(carrito)
-            let productIdx = carrito.products.findIndex((e) => {
+            logger.info(cart)
+            let productIdx = cart.products.findIndex((e) => {
                 return e.product === item.product
             })
             if (productIdx === -1) {
-                carrito.products = [...carrito.products, item]
+                cart.products = [...cart.products, item]
             } else {
-                carrito.products = carrito.products.map((e) => {
+                cart.products = cart.products.map((e) => {
                     if (e.product === item.product) {
                         return { ...e, quantity: e.quantity + item.quantity }
                     }
                     return e
                 })
             }
-            await this.persistance.update(id, carrito)
+            await this.persistance.update(id, cart)
             this._updateStock(item.product, item.quantity)
         } catch (err) {
             logger.error('Error' + err)

@@ -11,5 +11,9 @@ export default {
     },
     persistance: {
         PERSISTANCE: process.env.PERSISTANCE
+    },
+    mailer: {
+        SMTP_USER: process.env.SMTP_USER,
+        SMTP_PASSWORD: process.env.SMTP_PASSWORD
     }
 }
