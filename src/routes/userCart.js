@@ -12,7 +12,7 @@ const router = Router()
 class UserCartHandler {
     constructor(cartService, productService, userService) {
         this.cartService = cartService,
-            this.productService = productService
+        this.productService = productService
         this.userService = userService
     }
     getViewUserCart = async (req, res) => {

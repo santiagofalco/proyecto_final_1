@@ -1,10 +1,11 @@
-import {logger} from '../../utils/logger.js'
+import { logger } from '../../utils/logger.js'
 
 export class CartsHandler {
-    constructor(service, mailService, userService) {
+    constructor(service, mailService, userService, productService) {
         this.service = service
         this.mailService = mailService
         this.userService = userService
+        this.productService = productService
     }
 
     getCart = async (req, res) => {
@@ -46,7 +47,6 @@ export class CartsHandler {
 
     deleteCartProduct = async (req, res) => {
         try {
-            
             let id = req.params.cid
             let pid = req.params.pid
             await this.service.deleteCartProduct(id, pid)
@@ -60,17 +60,24 @@ export class CartsHandler {
 
     finishCart = async (req, res) => {
         try {
-            const {email, id, currentCartId} = req.session.user
+            const { email, id, currentCartId } = req.session.user
+            let cart = await this.service.getById(currentCartId)
+            let detail = ""
+            for (const element of cart.products) {
+                const product = await this.productService.getById(element.product)
+                detail += `${product.name} x ${element.quantity}`
+            }
             let result = await this.mailService.sendSimpleMail({
                 from: 'ProyectoEcommerce',
                 to: email,
                 subject: 'Confirmación de finalizacion simulación de compra',
+                html: `<div><p>Usted ha simulado la compra de: ${detail}</p></div>`
             })
-            await this.service.deleteCartById(currentCartId)
             await this.userService.updateCurrentCartUser(id, null)
+            await this.service.deleteCartById(currentCartId)
             req.session.user.currentCartId = null
             res.status(200).send()
-        }catch (error) {
+        } catch (error) {
             logger.error('error en finishCart', error)
             res.status(500).send('Falló al finalizar la compra')
         }

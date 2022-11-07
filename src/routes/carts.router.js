@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import CartService from '../services/cart.service.js';
 import MailService from '../services/mailer.service.js';
+import ProductService from '../services/product.service.js';
 import UserService from '../services/user.service.js'
 import { CartsHandler } from './handlers/carts.handlers.js';
 import { getCartPersistance } from '../daos/carts/index.js';
@@ -13,9 +14,10 @@ const cartPersistance = await getCartPersistance()
 const productPersistance = await getProductPersistance() 
 
 const service = new CartService(cartPersistance, productPersistance)
+const productService = new ProductService(productPersistance)
 const mailService = new MailService()
 const userService = new UserService(userPersistance)
-const handler = new CartsHandler(service, mailService, userService) 
+const handler = new CartsHandler(service, mailService, userService, productService) 
 
 router.post("/", handler.createCart);
 

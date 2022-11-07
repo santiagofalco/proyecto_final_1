@@ -25,7 +25,7 @@ async function deleteProductFromCart(cartId, productId) {
     if (res.status != 200) {
         alert('error al elmininar producto al carrito')
     } else {
-        alert('OK')
+        location.reload()
     }
 }
 

@@ -16,7 +16,7 @@ productForm?.addEventListener('submit', e => {
         if (res.status != 200) {
             alert('error al subir producto')
         } else {
-            alert('OK')
+            location.reload()
         }
     })
 })
@@ -38,7 +38,7 @@ productFormEdit?.addEventListener('submit', e => {
         if (res.status != 200) {
             alert('error al subir producto')
         } else {
-            alert('OK')
+            window.location.href = '/'
         }
     })
 })
@@ -54,6 +54,6 @@ async function deleteProductFromList(productId) {
     if (res.status != 200) {
         alert('error al elmininar producto al carrito')
     } else {
-        alert('OK')
+        location.reload()
     }
 }

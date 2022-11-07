@@ -15,12 +15,13 @@ export default class MailService {
 
         })
     }
-    sendSimpleMail = async ({ from, to, subject }) => {
+    sendSimpleMail = async ({ from, to, subject, html }) => {
         try {
             let result = await this.client.sendMail({
                 from,
                 to,
                 subject,
+                html
             })
             return result
         } catch (error) {
