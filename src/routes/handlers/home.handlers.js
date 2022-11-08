@@ -1,6 +1,3 @@
-// import { errCodigoInvalido } from "../../services/product.service.js"
-import { logger } from '../../utils/logger.js'
-
 export class HomeHandler {
     constructor(service, cartService, userService) {
         this.service = service

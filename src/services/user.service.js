@@ -17,14 +17,18 @@ class UserService {
     }
 
     updateCurrentCartUser = async (id, currentCartId) => {
-        await this.persistance.findByIdAndUpdate(
-            id,
-            {
-                $set: {
-                    currentCartId: currentCartId
-                },
-            }
-        );
+        try {
+            await this.persistance.findByIdAndUpdate(
+                id,
+                {
+                    $set: {
+                        currentCartId: currentCartId
+                    },
+                }
+            )
+        } catch (error) {
+            logger.error('error en UpdateCurrentCartUser UserService', error)
+        }
     }
 
 }
