@@ -4,8 +4,8 @@ import MailService from '../services/mailer.service.js';
 import ProductService from '../services/product.service.js';
 import UserService from '../services/user.service.js'
 import { CartsHandler } from './handlers/carts.handlers.js';
-import { getCartPersistance } from '../daos/carts/index.js';
-import { getProductPersistance } from '../daos/products/index.js';
+import { getCartPersistance } from '../daos/carts/factory.js';
+import { getProductPersistance } from '../daos/products/factory.js';
 import userPersistance from '../daos/users/MongoDao/users.js'
 
 const router = Router()

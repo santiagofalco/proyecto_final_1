@@ -2,6 +2,7 @@ import passport from "passport";
 import local from 'passport-local'
 import userService from "../daos/users/MongoDao/users.js";
 import { createHash, isValidPassword } from "../utils/password.js";
+import UserDTO from '../daos/users/UserDTO.js'
 
 const LocalStrategy = local.Strategy
 
@@ -28,7 +29,8 @@ const initializePassport = () => {
         async (email, password, done) => {
             try {
                 if (!email || !password) return done(null, false, { message: 'Valores incompletos' })
-                let user = await userService.findOne({ email: email })
+                let result = await userService.findOne({ email: email })
+                const user = new UserDTO(result)
                 if (!user) return done(null, false, { message: 'credenciales incorrectas' })
                 if (!isValidPassword(user, password)) return done(null, false, { message: 'contraseña incorrecta' })
                 return done(null, user)
@@ -39,10 +41,10 @@ const initializePassport = () => {
 
 
     passport.serializeUser((user, done) => {
-        done(null, user._id)
+        done(null, user.id)
     })
     passport.deserializeUser(async (id, done) => {
-        let result = await userService.findOne({ _id: id })
+        let result = await userService.findOne({ id: id })
         return done(null, result)
     })
 

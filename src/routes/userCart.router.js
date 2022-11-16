@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { getCartPersistance } from '../daos/carts/index.js'
-import { getProductPersistance } from '../daos/products/index.js'
+import { getCartPersistance } from '../daos/carts/factory.js'
+import { getProductPersistance } from '../daos/products/factory.js'
 import CartService from '../services/cart.service.js'
 import ProductService from '../services/product.service.js'
 import userPersistance from '../daos/users/MongoDao/users.js'
