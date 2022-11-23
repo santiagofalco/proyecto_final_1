@@ -31,7 +31,7 @@ export class CartsHandler {
             logger.error(error.message)
             res.status(500).send(error.message)
         }
-        res.status(200).send()
+        res.status(200).send(req.body)
     }
 
     deleteCart = async (req, res) => {

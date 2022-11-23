@@ -27,10 +27,6 @@ router.post("/:cid/products", handler.appendProductToCart);
 
 router.post("/:cid/finish", handler.finishCart);
 
-
-router.post("/:cid/products", handler.appendProductToCart);
-
-
 router.delete("/:cid", handler.deleteCart);
 
 router.delete("/:cid/products/:pid", handler.deleteCartProduct);
