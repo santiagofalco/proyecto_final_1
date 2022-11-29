@@ -1,0 +1,128 @@
+components:
+  requestBodies:
+    AddProductToCart:
+      type: object
+      properties:
+        quantity:
+          type: Number
+          description: Cantidad de unidades de producto a subir al carrito
+        product:
+          type: String
+          description: Id de producto a subir a carrito  
+      example: {
+          quatity: 5,
+          product: "3b97b81c-d410-4b00-9157-aec5b58b5f45"
+        }
+  schemas:
+    cart:
+      type: object
+      properties: 
+        cid: 
+          type: ObjectId
+          description: Id autogenerado por mongo
+        timestamp:
+          type: Number
+          description: Entero largo referente a la fecha y hora de creacion del carrito
+        products:
+          type: Array
+          description: arreglo de productos (inicalmente vacio)
+      example:
+        cid: ObjectId('3b46gb81c-d410-4b11-9157-aeb5asdf45')
+        timestamp: 14095860
+        products: [
+          {
+				    "quantity": 10,
+				    "product": "3b97b81c-d410-4b00-9157-aec5b58b5f45"
+			    }
+        ]
+
+
+paths:
+  /api/carts/{cid}/products:
+    get:
+      summary: Obtiene los productos dentro de un carrito
+      tags:
+        - Carts
+      parameters: 
+        - in: path
+          name: cid
+          description: id del carrito a buscar guardado en db
+          schema:
+            type: string 
+      responses:
+        "200":
+          description: "carrito se obtuvo correctamente"
+        "500":
+          description: "Error interno"
+          content: 
+            aplication/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/cart'
+    post:
+      summary: Añade un producto a un carrito en especifico
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          description: id del carrito al cual insertar producto
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/AddProductToCart"
+      responses:
+        "200":
+          description: "El producto se añadió correctamente"
+        "400":
+          description: "campos incompletos"
+        "500":
+          description: "Error interno de la base de datos"
+  /api/carts:
+    post:
+      summary: Crea un carrito con id, timestamp y una lista de productos vacia
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: "El carrito se creó correctamente"
+        "500":
+          description: "Error interno de inserción a la base de datos"
+  /api/carts/{cid}/finish:
+    post:
+      summary: finaliza la simulacion de la compra, vaciando el carrito y enviando un mail con el detalle al comprador
+      tags:
+        - Carts
+      parameters: 
+        - in: path
+          name: cid
+          description: id del carrito a finalizar la compra
+          schema:
+            type: string 
+      responses:
+        "200":
+          description: "La finalizacion se simuló correctamente"
+        "500":
+          description: "Ocurrió un error al finalizar compra"
+  /api/carts/{cid}/products/{pid}:
+    delete:
+      summary: elimina un producto especifico de un carrito especifico
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          description: id del carrito del cual eliminar un producto
+          schema:
+            type: string
+        - in: path
+          name: pid
+          description: id del producto a eliminar del carrito
+          schema:
+            type: string 
+

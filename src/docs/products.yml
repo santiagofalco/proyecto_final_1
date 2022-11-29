@@ -1,0 +1,157 @@
+components:
+  requestBodies:
+    AddProductToList:
+      type: object
+      properties:
+        name:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: codigo unico del producto
+        thumbnail:
+          type: String
+          description: url de la imagen del producto
+        price:
+          type: Number
+          description: precio del producto
+        stock:
+          type: Number
+          description: unidades disponibles del producto
+      example: {
+          name: 'Pizarra',
+          descripcion: 'Pizarra para tiza',
+          code: 'qv5',
+          thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png',
+          price: 24,
+          stock: 100,
+        }
+  schemas:
+    product:
+      type: object
+      properties: 
+        _id: 
+          type: ObjectId
+          description: Id autogenerado por mongo
+        name:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: codigo unico del producto
+        thumbnail:
+          type: String
+          description: url de la imagen del producto
+        price:
+          type: Number
+          description: precio del producto
+        stock:
+          type: Number
+          description: unidades disponibles del producto
+        timestamp:
+          type: Number
+          description: entero largo correspondiente a la fecha y hora de insercion del producto
+      example: {
+          _id: ObjectId('3b46gb81c-d410-4b11-9157-aeb5asdf45'),
+          name: 'Pizarra',
+          descripcion: 'Pizarra para tiza',
+          code: 'qv5',
+          thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png',
+          price: 24,
+          stock: 100,
+          timestamp: 14095860
+        }
+paths:
+  /api/products/:
+    post:
+      summary: Crea un producto con name, descripcion, code, stock, thumbnail, timestamp, price, y id (autogenerado por mongo) 
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/AddProductToList"
+      responses:
+        "200":
+          description: "El producto se creó correctamente"
+        "400":
+          description: "campos incompletos"
+        "500":
+          description: "Error interno de la base de datos"
+    get:
+      summary: Lista todos los productos disponibles en la base de datos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: "consulta al endpoint exitosa"
+        "500":
+          description: "Error interno"
+          content: 
+            aplication/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/product'
+  /api/products/{pid}:
+    get:
+      summary: Devuelve un producto de la base de datos, por un id especifico
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          description: id del producto a buscar
+          schema:
+            type: String
+      responses:
+        "200":
+          description: "consulta al endpoint exitosa"
+        "500":
+          description: "Error interno"
+    put:
+      summary: Actualizacion de datos de cierto producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/AddProductToList"
+      parameters:
+        - in: path
+          name: pid
+          description: id de producto a modificar
+          schema:
+            type: String
+      responses:
+        "200":
+          description: "El producto se actualizó correctamente"
+        "400":
+          description: "campos incompletos"
+        "500":
+          description: "Error interno de la base de datos"
+    delete:
+      summary: Eliminar producto especifico
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          description: id del producto a eliminar
+          schema:
+            type: String
+      responses:
+        "200":
+          description: "producto eliminado con éxito"
+        "500":
+          description: "Error interno"

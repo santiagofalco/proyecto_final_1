@@ -18,6 +18,8 @@ import morganMiddleware from './middlewares/morganMiddleware.js'
 import passport from 'passport'
 import initializePassport from './config/passport.config.js'
 import config from './config/config.js'
+import swaggerJsdoc from 'swagger-jsdoc'
+import swaggerUIExpress from 'swagger-ui-express'
 
 
 export const AUTH_TOKEN = '123456'
@@ -25,6 +27,19 @@ export const AUTH_TOKEN = '123456'
 const app = express()
 
 app.use(express.json())
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: 'api ecommerce',
+            description: 'api desarrollada para proyecto de ecommerce'
+        }
+    },
+    apis: [`${__dirname}/docs/**/*.yml`]
+}
+
+const specs = swaggerJsdoc(swaggerOptions)
 
 app.use(morganMiddleware)
 
@@ -51,6 +66,7 @@ const server = app.listen(config.app.PORT || 8000, () => {
     logger.info(`Listening on port: ${config.app.PORT}`)
 })
 
+app.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
 app.use("/public", express.static(__dirname + '/public'));
 app.use('/', Home)
 app.use('/login', login)
