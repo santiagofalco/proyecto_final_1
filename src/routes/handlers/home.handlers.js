@@ -6,7 +6,7 @@ export class HomeHandler {
     }
 
     getHome = async (req, res) => {
-        let productos = await this.service.getAll()
+        let products = await this.service.getAll()
         let user = req.session.user
         if (user) {
             if (user.currentCartId === undefined || user.currentCartId === null) {
@@ -18,7 +18,7 @@ export class HomeHandler {
                     message: 'Lista de productos',
                     welcomeMessage: `Bienvenido/a administrador ${user.name}`,
                     avatar: user.avatar,
-                    productos,
+                    products,
                     currentCartId: user.currentCartId
 
                 })
@@ -27,7 +27,7 @@ export class HomeHandler {
                     message: 'Lista de productos',
                     welcomeMessage: `Bienvenido/a ${user.name}`,
                     avatar: user.avatar,
-                    productos,
+                    products,
                     currentCartId: user.currentCartId
                 })
             }

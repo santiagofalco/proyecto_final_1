@@ -25,6 +25,9 @@ html
             .input {
                 width: 20%
             }
+            input.number {
+                width: 20%
+            }
             span {
                 display: flex;
             }
@@ -43,22 +46,28 @@ html
                     a( class='cart' href="/cart") Carrito
                     button(class='btn-out' id='logout') Desloguear
                 h2=message
-                if productos.length > 0
+                if products.length > 0
                     table(class='tabla' id='tabla')
                         tr
                             th Nombre Producto
                             th Precio Producto
                             th Imagen Producto
+                            th Stock
                             th Acción
 
-                        each producto in productos
+                        each product in products
                             tr
-                                td=producto.name
-                                td=producto.price
+                                td=product.name
+                                td=product.price
                                 td
-                                    img(class='imagen' src=producto.thumbnail)
+                                    img(class='imagen' src=product.thumbnail)
+                                td 
+                                    p=product.stock + ' unidades'
+                                td  
+                                    label Cantidad
+                                    input(class='number' id='quantity-'+product.id type='number' min='1' value='0')
                                 td
-                                    button(class='cart' onclick='addProductToCart("'+currentCartId+'","'+producto.id+'")') Añadir a carrito
+                                    button(class='cart' onclick='addProductToCart("'+currentCartId+'","'+product.id+'")') Añadir a carrito
                 else
                     h4='No hay productos para mostrar'
         script(type='text/javascript' src='/public/js/cart.js')

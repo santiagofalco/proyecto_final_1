@@ -1,4 +1,3 @@
-import fs from 'fs'
 import {logger} from '../utils/logger.js'
 
 class CartService {
@@ -49,14 +48,14 @@ class CartService {
     addProductToCart = async (id, item) => {
         try {
             if (! await this._isProductValid(item.product, item.quantity)) {
-                // throw new Error('Producto inexistente o insuficiente')
                 logger.info('not valid or insufficient product')
+                throw new Error('not valid or insufficient product')
             }
             let cart = await this.persistance.getById(id)
 
             if (!cart) {
                 logger.info('not valid or inexistent cart')
-                // throw new Error('cart no existe')
+                throw new Error('cart doesnt exists')
             }
             logger.info(item)
             logger.info(cart)
@@ -117,25 +116,25 @@ class CartService {
     deleteCartProduct = async (id, pid) => {
         logger.info(pid)
         try {
-            let carrito = await this.persistance.getById(id)
-            logger.info(carrito)
-            if (!carrito) {
-                logger.info('carrito no existe')
-                // throw new Error('carrito no existe')
+            let cart = await this.persistance.getById(id)
+            logger.info(cart)
+            if (!cart) {
+                logger.info('cart doesnt exists')
+                throw new Error('cart doesnt exists')
             }
-            let productIdx = carrito.products.findIndex(e => {
+            let productIdx = cart.products.findIndex(e => {
                 return e.product === pid
             })
             if (productIdx === -1) {
-                logger.info('producto no existe')
-                // throw new Error('producto no existe')
+                logger.info('product doesnt exists')
+                throw new Error('product doesnt exists')
             }
-            let [removedProduct] = carrito.products.splice(productIdx, 1)
-            await this.persistance.update(id, carrito)
+            let [removedProduct] = cart.products.splice(productIdx, 1)
+            await this.persistance.update(id, cart)
             await this._updateStock(pid, removedProduct.quantity * -1)
         } catch (error) {
             logger.error('Error' + error)
-            // throw error
+            throw error
         }
 
     }

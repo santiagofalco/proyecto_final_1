@@ -57,22 +57,22 @@ html
                     input(name="stock")
                     button(type="submit") Enviar
                 h2=message
-                if productos.length > 0
+                if products.length > 0
                     table(class='tabla' id='tabla')
                         tr
                             th Nombre Producto
                             th Precio Producto
                             th Imagen Producto
                             th Acciones
-                        each producto in productos
+                        each product in products
                             tr
-                                td=producto.name
-                                td=producto.price
+                                td=product.name
+                                td=product.price
                                 td
-                                    img(class='imagen' src=producto.thumbnail)
+                                    img(class='imagen' src=product.thumbnail)
                                 td
-                                    a(class='cart' href="/edit/"+producto.id) Editar
-                                    button(class='cart' onclick='deleteProductFromList("'+producto.id+'")') Eliminar
+                                    a(class='cart' href="/edit/"+product.id) Editar
+                                    button(class='cart' onclick='deleteProductFromList("'+product.id+'")') Eliminar
                 else
                     h4='No hay productos para mostrar'
         script(type='text/javascript' src='../public/js/product.js')

@@ -7,42 +7,42 @@ export class ProductHandler {
     }
 
     getAllProducts = async (req, res) => {
-        const productos = await this.service.getAll()
-        if (!productos) {
-            logger.info('productos:', [])
+        const products = await this.service.getAll()
+        if (!products) {
+            logger.info('products:', [])
             res.status(404).json([])
         } else {
-            res.status(200).json(productos)
+            res.status(200).json(products)
         }
     }
 
     getProductById = async (req, res) => {
         let id = req.params.pid
-        const producto = await this.service.getById(id)
-        if (!producto) {
-            logger.info('productos:', {})
+        const product = await this.service.getById(id)
+        if (!product) {
+            logger.info('product:', {})
             res.status(404).json({})
         } else {
-            res.status(200).json(producto)
+            res.status(200).json(product)
         }
     }
 
     addProductToList = async (req, res) => {
-        let producto
+        let product
         try {
-            producto = await this.service.addProduct(req.body)
+            product = await this.service.addProduct(req.body)
         } catch (error) {
             if(error == errCodigoInvalido) {
-                logger.info('Codigo Invalido')
-                res.status(409).send('Codigo Invalido')
+                logger.info('Invalid Code')
+                res.status(409).send('Invalid Code')
                 return
             }
-            logger.error('Error 500: Algo falló')
-            res.status(500).send('Algo falló')
+            logger.error('Error 500: Something went wrong')
+            res.status(500).send('Something went wrong')
             return
         }
-        logger.info(producto)
-        res.status(200).json(producto)
+        logger.info(product)
+        res.status(200).json(product)
     }
 
     updateProduct = async (req, res) => {
@@ -50,8 +50,9 @@ export class ProductHandler {
             let id = req.params.pid
             await this.service.updateProduct(id, req.body)
         } catch (error) {
-            logger.error('Error 500: Algo falló', error)
-            res.status(500).send('Algo falló')
+            logger.error('Error 500: Something went wrong', error)
+            res.status(500).send('Something went wrong')
+            return
         }
         res.status(200).send()
     }
@@ -61,8 +62,9 @@ export class ProductHandler {
             let id = req.params.pid
             await this.service.deleteProductById(id)
         } catch (error) {
-            logger.error('Error 500: Algo falló')
-            res.status(500).send('Falló al eliminar')
+            logger.error('Error 500: Something went wrong')
+            res.status(500).send('Failed to delete')
+            return
         }
         res.status(200).send()
     }

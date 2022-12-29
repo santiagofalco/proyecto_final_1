@@ -1,5 +1,6 @@
 async function addProductToCart(cartId, productId) {
-    const product = { quantity: 1, product: productId }
+    let quantity = parseInt(document.getElementById('quantity-'+productId).value)
+    const product = { quantity, product: productId }
     const res = await fetch(`/api/carts/${cartId}/products`, {
         method: 'POST',
         body: JSON.stringify(product),
@@ -8,7 +9,7 @@ async function addProductToCart(cartId, productId) {
         }
     })
     if (res.status != 200) {
-        alert('error al agregar producto al carrito')
+        alert('failed adding product to cart')
     } else {
         alert('OK')
     }
@@ -23,7 +24,7 @@ async function deleteProductFromCart(cartId, productId) {
         }
     })
     if (res.status != 200) {
-        alert('error al elmininar producto al carrito')
+        alert('failed to delete product form cart')
     } else {
         location.reload()
     }
@@ -39,7 +40,7 @@ async function finishPurchase(cartId, userId) {
         }
     })
     if (res.status != 200) {
-        alert('error al finalizar')
+        alert('failed to finish purchase')
     } else {
         alert('OK')
         window.location.href = `/`

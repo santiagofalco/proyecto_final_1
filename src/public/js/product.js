@@ -14,7 +14,7 @@ productForm?.addEventListener('submit', e => {
         }
     }).then(res => {
         if (res.status != 200) {
-            alert('error al subir producto')
+            alert('failed to upload product')
         } else {
             location.reload()
         }
@@ -36,7 +36,7 @@ productFormEdit?.addEventListener('submit', e => {
         }
     }).then(res => {
         if (res.status != 200) {
-            alert('error al subir producto')
+            alert('failed to upload product')
         } else {
             window.location.href = '/'
         }
@@ -52,7 +52,7 @@ async function deleteProductFromList(productId) {
         }
     })
     if (res.status != 200) {
-        alert('error al elmininar producto al carrito')
+        alert('failed to delete product from cart')
     } else {
         location.reload()
     }

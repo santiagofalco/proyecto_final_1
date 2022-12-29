@@ -42,22 +42,24 @@ html
             div
                 if cart.length > 0
                     h3='Productos en Carrito'
-                    h4=`Usted posee ${cart.length} producto/s en su carrito`
                     table(class='tabla' id='tabla')
                         tr
                             th Nombre Producto
                             th Precio Producto
+                            th Unidades en su carrito
                             th Imagen Producto
-                        each producto in cart
+                        each product in cart
                             tr
-                                td=producto.name
-                                td=producto.price
+                                td=product.name
+                                td=product.price
+                                td=product.quantity
                                 td
-                                    img(class='imagen' src=producto.thumbnail)
+                                    img(class='imagen' src=product.thumbnail)
                                 td
-                                    button(class='cart' onclick='deleteProductFromCart("'+currentCartId+'","'+producto.id+'")') Quitar del carrito
+                                    button(class='cart' onclick='deleteProductFromCart("'+currentCartId+'","'+product.id+'")') Quitar del carrito        
                     button(class='cart' onclick='finishPurchase("'+currentCartId+'", "'+userId+'")') Finalizar Compra
-                    p(class='info') *Se le enviará un mail de confirmación*
+                    p(class='info') *Aguarde un alert de confirmación. Al finalizar, se le enviará un mail con el detalle de su compra*
                 else
                     h4='Carrito vacío, comience seleccionando algunos productos'
+                    button( class='login-btn' type="submit" onclick="window.location.href='/'") Ir a Home
         script(type='text/javascript' src='../public/js/cart.js')
