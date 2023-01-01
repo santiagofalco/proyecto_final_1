@@ -1,5 +1,9 @@
 async function addProductToCart(cartId, productId) {
     let quantity = parseInt(document.getElementById('quantity-'+productId).value)
+    if (quantity <= 0) {
+        alert('la cantidad debe ser mayor a 0')
+        return
+    }
     const product = { quantity, product: productId }
     const res = await fetch(`/api/carts/${cartId}/products`, {
         method: 'POST',
