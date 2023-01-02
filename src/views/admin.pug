@@ -63,6 +63,7 @@ html
                             th Nombre Producto
                             th Precio Producto
                             th Imagen Producto
+                            th Stock
                             th Acciones
                         each product in products
                             tr
@@ -70,6 +71,8 @@ html
                                 td=product.price
                                 td
                                     img(class='imagen' src=product.thumbnail)
+                                td
+                                    p=product.stock + ' unidades'
                                 td
                                     a(class='cart' href="/edit/"+product.id) Editar
                                     button(class='cart' onclick='deleteProductFromList("'+product.id+'")') Eliminar
